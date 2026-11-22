@@ -9,6 +9,7 @@ bot.SOURCES.pop("moonmedia", None)
 _original_run = bot.run
 _original_summarize = bot.summarize
 RLM = "\u200f"
+LRM = "\u200e"
 BIDI_CONTROLS = re.compile("[\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]")
 LATIN_RUN = re.compile(r"[A-Za-z0-9]+(?:[ \t]+[A-Za-z0-9]+|[.'’:&+/_-][A-Za-z0-9]+)*")
 
@@ -34,7 +35,7 @@ def render(obj):
     title = rtl_text(obj["title"])
     p1, p2 = map(rtl_text, obj["paragraphs"])
     footer = '<i><a href="https://t.me/pixelmediair">🔷 \u2066pixel media\u2069</a></i>'
-    return f"{RLM}<b>🟦 {title}</b>\n\n{RLM}{p1}\n\n{RLM}{p2}\n\n{RLM}{footer}"
+    return f"{RLM}<b>🟦 {title}</b>\n\n{RLM}{p1}\n\n{RLM}{p2}\n\n{LRM}{footer}"
 
 
 def summarize(data, recent):
