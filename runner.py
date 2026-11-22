@@ -1,4 +1,4 @@
-"""Railway entrypoint: three sources, linked footer, and a gaming-news filter."""
+"""Railway entrypoint: three sources, RTL posts, and a gaming-news filter."""
 import html
 import json
 import re
@@ -8,6 +8,9 @@ import bot
 bot.SOURCES.pop("moonmedia", None)
 _original_run = bot.run
 _original_summarize = bot.summarize
+RLM = "\u200f"
+BIDI_CONTROLS = re.compile("[\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]")
+LATIN_RUN = re.compile(r"[A-Za-z0-9]+(?:[ \t]+[A-Za-z0-9]+|[.'’:&+/_-][A-Za-z0-9]+)*")
 
 
 def run(db, dry=False):
@@ -20,12 +23,18 @@ def run(db, dry=False):
     return _original_run(db, dry)
 
 
+def rtl_text(text):
+    text = BIDI_CONTROLS.sub("", text).strip()
+    text = LATIN_RUN.sub(lambda m: "\u2066" + m.group(0) + "\u2069", text)
+    return html.escape(text)
+
+
 def render(obj):
     bot.validate_content(obj)
-    title = html.escape(obj["title"])
-    p1, p2 = map(html.escape, obj["paragraphs"])
-    footer = '<i><a href="https://t.me/pixelmediair">🔷 pixel media</a></i>'
-    return f"<b>🟦 {title}</b>\n\n{p1}\n\n{p2}\n\n{footer}"
+    title = rtl_text(obj["title"])
+    p1, p2 = map(rtl_text, obj["paragraphs"])
+    footer = '<i><a href="https://t.me/pixelmediair">🔷 \u2066pixel media\u2069</a></i>'
+    return f"{RLM}<b>🟦 {title}</b>\n\n{RLM}{p1}\n\n{RLM}{p2}\n\n{RLM}{footer}"
 
 
 def summarize(data, recent):
