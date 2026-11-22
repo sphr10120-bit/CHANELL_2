@@ -1,0 +1,19 @@
+Local offline unit tests only. No live API/site integration or Railway deployment tested.
+
+test_atom (test_bot.Tests.test_atom) ... ok
+test_baseline_does_not_send (test_bot.Tests.test_baseline_does_not_send) ... ok
+test_dates (test_bot.Tests.test_dates) ... ok
+test_escape (test_bot.Tests.test_escape) ... ok
+test_image_rejection_falls_back (test_bot.Tests.test_image_rejection_falls_back) ... ok
+test_no_fallback_on_ambiguous_delivery (test_bot.Tests.test_no_fallback_on_ambiguous_delivery) ... ok
+test_no_urls (test_bot.Tests.test_no_urls) ... ok
+test_paragraph_count (test_bot.Tests.test_paragraph_count) ... ok
+test_render (test_bot.Tests.test_render) ... ok
+test_rss (test_bot.Tests.test_rss) ... ok
+test_start_time_persisted (test_bot.Tests.test_start_time_persisted) ... ok
+test_title_length (test_bot.Tests.test_title_length) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.010s
+
+OK
